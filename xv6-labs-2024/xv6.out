@@ -1,0 +1,17 @@
+
+xv6 kernel is booting
+
+hart 1 starting
+hart 2 starting
+init: starting sh
+$ mkdir delaEebF
+$ echo > delaEebF/k9DeDrpP
+$ mkdir delaEebF/HRwNufoV
+$ echo > delaEebF/HRwNufoV/k9DeDrpP
+$ mkdir Pi9djemP
+$ echo > Pi9djemP/k9DeDrpP
+$ find . k9DeDrpP
+./delaEebF/k9DeDrpP
+./delaEebF/HRwNufoV/k9DeDrpP
+./Pi9djemP/k9DeDrpP
+$ qemu-system-riscv64: terminating on signal 15 from pid 1443 (make)
