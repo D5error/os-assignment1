@@ -48,17 +48,17 @@ void *consumer_controller() {
         pthread_mutex_lock(&mutex);
 
         // 缓冲区数量低于低阈值
-        if (slots_count < SLOTS_LOWER_THREAD && running_consumers_num > MIN_CONSUMERS) {
+        if (slots_count < SLOTS_LOWER_THRESHOLD && running_consumers_num > MIN_CONSUMERS) {
             running_consumers_num--;
             pthread_create(&consumers[running_consumers_num - 1], NULL, consumer, &running_consumers_num);
-            printf("缓冲区数量小于%d, 减少1名消费者\n", SLOTS_LOWER_THREAD);
+            printf("缓冲区数量小于%d, 减少1名消费者\n", SLOTS_LOWER_THRESHOLD);
         }
         
         // 缓冲区数量高于高阈值
-        else if (slots_count > SLOTS_UPPER_THREAD && running_consumers_num < MAX_CONSUMERS) {
+        else if (slots_count > SLOTS_UPPER_THRESHOLD && running_consumers_num < MAX_CONSUMERS) {
             running_consumers_num++;
             pthread_create(&consumers[running_consumers_num - 1], NULL, consumer, &running_consumers_num);
-            printf("缓冲区数量大于%d, 添加1名消费者\n", SLOTS_UPPER_THREAD);
+            printf("缓冲区数量大于%d, 添加1名消费者\n", SLOTS_UPPER_THRESHOLD);
         }
 
         // 打印信息
@@ -107,7 +107,7 @@ void *consumer(void *arg) {
 
         // 负指数分布延迟
         double u = (double)rand() / RAND_MAX; // 均匀分布随机数 U ∈ [0,1)
-        double delay = lambda_s == 0 ? 0 : -log(1 - u) / lambda_s;
+        double delay = lambda_s < 0 ? 0 : lambda_s * exp(-lambda_s * u);
         printf("delay %f秒\n", delay);
         usleep(delay * 1000000);
     }

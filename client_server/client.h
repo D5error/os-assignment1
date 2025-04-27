@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-#define N_PRODUCERS 3
+#define N_PRODUCERS 1
 #define N_SLOTS 20
 
 
@@ -16,9 +16,9 @@ double lambda_c;
 
 // 消息结构体
 typedef struct {
-    pid_t process_id;
-    int thread_id;
-    int data;
+    pid_t process_id; // 进程id
+    int thread_id; // 线程id
+    int data; // 数据
 } Msg;
 
 
@@ -26,7 +26,6 @@ typedef struct {
 Msg slots[N_SLOTS];
 int in;
 int out;
-
 
 // 同步工具
 sem_t empty;    // 空槽位信号量(初始为 N_SLOTS)

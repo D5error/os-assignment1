@@ -74,7 +74,7 @@ void *producer(void *arg) {
 
         // 负指数分布延迟
         double u = (double)rand() / RAND_MAX; // 均匀分布随机数 U ∈ [0,1)
-        double delay = lambda_c == 0 ? 0 : -log(1 - u) / lambda_c;
+        double delay = lambda_c < 0 ? 0 : lambda_c * exp(-lambda_c * u);
         printf("delay %f秒\n", delay);
         usleep(delay * 1000000);
     }

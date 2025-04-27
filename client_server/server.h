@@ -8,11 +8,11 @@
 #include <math.h>
 
 
-#define MIN_CONSUMERS 3
-#define MAX_CONSUMERS 10
-#define N_SLOTS 20
-#define SLOTS_LOWER_THREAD 5  
-#define SLOTS_UPPER_THREAD 15
+#define MIN_CONSUMERS 3 // 最小消费者数量
+#define MAX_CONSUMERS 10 // 最大消费者数量
+#define N_SLOTS 20 // 缓冲区大小
+#define SLOTS_LOWER_THRESHOLD 5 // 最低阈值
+#define SLOTS_UPPER_THRESHOLD 15 // 最高阈值
 
 // 线程动态增减的时间间隔
 #define CHECK_SECONDS 0.6
@@ -45,7 +45,7 @@ pthread_mutex_t mutex;  // 互斥锁，保护缓冲区访问
 // 记录消费者的信息
 pthread_t consumers[MAX_CONSUMERS];
 int consumer_ids[MAX_CONSUMERS];
-int running_consumers_num;
+int running_consumers_num; // 当前运行的消费者线程数量
 
 
 // 初始化
